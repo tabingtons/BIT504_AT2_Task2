@@ -53,12 +53,12 @@ public class GameMain extends JPanel implements MouseListener{
 		add(statusBar, BorderLayout.SOUTH);
 		// account for statusBar height in overall height
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
-		
-		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
 
-		
-		//TODO: call the method to initialise the game board
+		//create a new instance of the game "Board"class.
+		board = new Board();
+
+		//call the method to initialise the game board
+		initGame();
 
 	}
 	
@@ -66,19 +66,20 @@ public class GameMain extends JPanel implements MouseListener{
 		    // Run GUI code in Event Dispatch thread for thread safety.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	         public void run() {
+	        	
 				//create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
 				
-				//TODO: create the new GameMain panel and add it to the frame
-						
+				//create the new GameMain panel and add it to the frame
+				GameMain gameMain = new GameMain();
+				frame.add(gameMain);
 				
-				
-				//TODO: set the default close operation of the frame to exit_on_close
-		            
-				
-				frame.pack();             
+				//set frame defaults
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.pack();        
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
+
 	         }
 		 });
 	}
