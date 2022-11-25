@@ -12,10 +12,9 @@ public class Board {
 	/** Constructor to create the game board */
 	public Board() {
 		
-		//TODO
 		//initialise the cells array using ROWS and COLS constants
 		cells = new Cell [GameMain.ROWS][GameMain.COLS];
-		
+		//Using this array, create a cell for each square on the board through the Cell constructor
 		for (int row = 0; row < GameMain.ROWS; ++row) {
 			for (int col = 0; col < GameMain.COLS; ++col) {
 				cells[row][col] = new Cell(row, col);
