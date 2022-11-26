@@ -63,7 +63,7 @@ public class GameMain extends JPanel implements MouseListener{
 	}
 	
 	public static void main(String[] args) {
-		    // Run GUI code in Event Dispatch thread for thread safety.
+		// Run GUI code in Event Dispatch thread for thread safety.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	         public void run() {
 	        	
@@ -91,29 +91,37 @@ public class GameMain extends JPanel implements MouseListener{
 		//ask the game board to paint itself
 		board.paint(g);
 		
-		//set status bar message
+		// set status bar message
+		// set for if the game is ongoing
 		if (currentState == GameState.Playing) {          
-			statusBar.setForeground(Color.BLACK);          
+			statusBar.setForeground(Color.BLACK);  
+			// When it is cross's turn
 			if (currentPlayer == Player.Cross) {   
 				// status bar displays the message "X"'s Turn
 				statusBar.setText("X's Turn.");
-				
+			// When it is nought's turn	
 			} else {    
 				// status bar displays the message "O"'s Turn
 				statusBar.setText("O's Turn.");
 				
-			}       
-			} else if (currentState == GameState.Draw) {          
-				statusBar.setForeground(Color.RED);          
-				statusBar.setText("It's a Draw! Click to play again.");     
-			} else if (currentState == GameState.Cross_won) {          
-				statusBar.setForeground(Color.RED);          
-				statusBar.setText("'X' Won! Click to play again.");       
-			} else if (currentState == GameState.Nought_won) {          
-				statusBar.setForeground(Color.RED);          
-				statusBar.setText("'O' Won! Click to play again.");       
 			}
+		// If the game has ended in a draw
+		} else if (currentState == GameState.Draw) { 
+			// Turn the text red and show the outcome as a draw
+			statusBar.setForeground(Color.RED);          
+			statusBar.setText("It's a Draw! Click to play again.");  
+		// If the game is won by cross
+		} else if (currentState == GameState.Cross_won) {    
+			// Turn the text red and show the outcome as cross winning
+			statusBar.setForeground(Color.RED);          
+			statusBar.setText("'X' Won! Click to play again.");
+		// If the game is won by nought
+		} else if (currentState == GameState.Nought_won) {
+			// Turn the text red and show the outcome as nought winning
+			statusBar.setForeground(Color.RED);          
+			statusBar.setText("'O' Won! Click to play again.");       
 		}
+	}
 		
 	
 	  /** Initialise the game-board contents and the current status of GameState and Player) */
@@ -138,13 +146,20 @@ public class GameMain extends JPanel implements MouseListener{
 			//check for win after play
 			if(board.hasWon(thePlayer, row, col)) {
 				
-				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
-
-				
-			} else 
-				if (board.isDraw ()) {
+				// Check which player has won and update the currentstate to the appropriate gamestate for the winner
+				if (thePlayer == Player.Cross) {
+					// set the currentstate to the Cross_won gamestate
+					currentState = GameState.Cross_won;
+				} else if (thePlayer == Player.Nought) {
+					// set the currentstate to the Nought_won gamestate
+					currentState = GameState.Nought_won;
+				}
+			
+			// if no win, check if it is a draw
+			} else if (board.isDraw ()) {
 					
-				// TODO: set the currentstate to the draw gamestate
+				// set the currentstate to the draw gamestate
+				currentState = GameState.Draw;
 
 			}
 			//otherwise no change to current state of playing
